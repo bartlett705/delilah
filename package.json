@@ -1,0 +1,32 @@
+{
+  "name": "marmotify",
+  "version": "0.0.1",
+  "description": "A super-cool to-do list",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "main": "server/server.js",
+    "test": "istanbul cover test/tape.js"
+  },
+  "repository": {
+    "url": "git@github.com:bartlett705/marmotify.git",
+    "type": "git"
+  },
+  "author": "Ahmad Kanawi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "istanbul": "^0.4.5",
+    "supertest": "^2.0.1",
+    "tap-dot": "^1.0.5",
+    "tape": "^4.6.2"
+  }
+}
