@@ -1,0 +1,24 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>d CMS: Annotate</title>
+</head>
+<body>
+  Delilah CMS : Edit Work
+  <% if (flash) { %>
+    <div class='flashTitle'>  <%= flash.title %> </div>
+    <div class='flashBody'> <%= flash.body %> </div>
+    <% } %>
+  <form method='POST' action='/edit/<%= work._id %>'>
+    <input name="title" type="text" value="<%= work.title %>"></input>
+    <input name="caption" type="text" value="<%= work.caption %>"></input>
+    <input name="medium" type="text" value="<%= work.medium %>"></input>
+    <input name="creationDate" type="text" value="<%= work.creationDate %>"></input>
+    <% for (i = 0; i < work.uris.length; i++) { %>
+      <input name="uriname" type="text" value="<%= work.uris[i].name %>"></input>
+      <input name="uri" type="text" value="<%= work.uris[i].uri %>"</input>
+      <input name="urinotes" type="text" value="<%= work.uris[i].notes %>"></input>
+    <input type='submit' value='Annotate Work'></button>
+  </form>
+</body>
+</html>
