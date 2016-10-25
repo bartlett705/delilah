@@ -7,7 +7,7 @@ db.once('open', () => {
 });
 
 const todoSchema = mongoose.Schema({
-  title: String,
+  title: { type: String, required: true },
   body: String,
   completed: Boolean,
   addedDate: { type: Date, default: Date.now },
@@ -17,8 +17,24 @@ const ToDo = mongoose.model('ToDo', todoSchema);
 
 const respondWithToDos = (req, res) => {
   ToDo.find({}, (err, data) => {
-    res.json(data);
+    if (err) {
+      console.log(error);
+      return res.json(err);
+    } else return res.json(data);
   });
 };
 
-module.exports = { db, ToDo, respondWithToDos };
+const validateAndCommitPost = (req, res) => {
+  ToDo.create(req.body, (err, data) => {
+    if (err) {
+      console.log('Validation Error!');
+      res.statusCode = (401);
+      return res.end();
+    }
+    else {
+      return res.json(data);
+    }
+  });
+}
+
+module.exports = { db, ToDo, respondWithToDos, validateAndCommitPost };

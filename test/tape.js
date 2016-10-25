@@ -50,6 +50,48 @@ test('GET to /todo should return an array of todo objects', (t) => {
       t.end();
     });
 });
+test('POST to /todo with improper format should return error & not write DB', (t) => {
+  const badObj = {
+    body: 'Do some stuff',
+    ok: 'some stuff',
+    notok: 'Totally Wrong',
+  };
+  const errObj = {
+    error: 'Malformed ToDo in post reuqest',
+  };
+  stRequest(HOST)
+    .post('/todo')
+    .send(badObj)
+    .expect('Content-Type', /application\/json/)
+    .end((err, res) => {
+      t.equal(res.statusCode, 401, '401 Code returned');
+      ToDo.find({}, (err, data) => {
+        t.equal(data.length, 1, 'Malformed entry not added to DB!');
+        t.end();
+      });
+    });
+});
+test('POST to /todo with proper format should return todo & write DB', (t) => {
+  const goodObj = {
+    title: 'Another Awesome ToDo',
+    body: 'Some more stuff to remember',
+    completed: false,
+    dueDate: Date.now(),
+  };
+  stRequest(HOST)
+    .post('/todo')
+    .send(goodObj)
+    .expect('Content-Type', /application\/json/)
+    .expect(200)
+    .end((err, res) => {
+      console.log(res.body);
+      t.equal(res.body.title, goodObj.title, 'Todo Obj returned.');
+      ToDo.find({}, (err, data) => {
+        t.equal(data.length, 2, 'New entry added to DB!');
+        t.end();
+      });
+    });
+});
 test('Teardown', (t) => {
   ToDo.remove({}, (err) => {
     t.error(err, 'No error on db clear');
