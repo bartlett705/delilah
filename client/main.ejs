@@ -1,0 +1,51 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>delilah CMS Main</title>
+</head>
+<body>
+  Delilah CMS : Main View
+  <% if (flash) { %>
+    <div class='flashTitle'>  <%= flash.title %> </div>
+    <div class='flashBody'> <%= flash.body %> </div>
+  <% } %>
+  <div id='container'>
+    <ul id ='work-list'>
+      <h2>Catalog</h2>
+      <% for(let i=0; i < works.length; i++) {
+        const work = works[i]; %>
+      <li class='work-container'>
+        <span class="work-title">
+          <%= work.title %>
+        </span>
+        <span class="work-caption">
+          <%= work.caption %>
+        </span>
+        <span class="work-medium">
+          <%= work.medium %>
+        </span>
+        <span class="work-creationdate">
+          <%= work.creationDate %>
+        </span>
+        <ul class="uri-list">
+        <% for (let j=0; i < work.uris.length; j++ ) {
+          let uri = work.uris[j]; %>
+          <li class='uri-listitem'>
+            <span class="uri-name">
+              <%= uri.name %>
+            </span>
+            <span class="uri-notes">
+              <%= uri.notes %>
+            </span>
+            <span class="uri-href">
+              <%= uri.href %>
+            </span>
+          </li>
+          <% } %>
+        </ul>
+      </li>
+      <% } %>
+  </ul>
+  </div>
+</body>
+</html>

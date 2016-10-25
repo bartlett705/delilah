@@ -3,7 +3,7 @@ const test = require('tape')
 const stRequest = require('supertest');
 const server = require('../server/server');
 const {
-  db, ToDo
+  db, Work
 } = require('../server/db');
 
 // Configuration stuff
@@ -22,78 +22,107 @@ test('Exercise Static fileserving', function(t) {
     });
 });
 test('DB Connection, basic I/O', (t) => {
-  ToDo.create({
-    title: 'A ToDo',
-    body: 'Some stuff to remember',
-    completed: false,
-    dueDate: Date.now(),
+  Work.create({
+    title: 'Two Guise',
+    caption: 'A pretty scene',
+    medium: 'Clay',
+    public: true,
+    creationDate: Date.now(),
+    uris: [
+      {
+        href: 'http://codemosey.net',
+        name: '500px JPG',
+        notes: 'Highly compressed',
+      },
+      {
+        href: 'http://codemosey.net',
+        name: '500px JPG',
+        notes: 'Highly compressed',
+
+      }],
   }, (err) => {
     t.error(err, 'No Errors on create');
-    ToDo.findOne({}, (err, data) => {
+    Work.findOne({}, (err, data) => {
       t.ok(data.title, 'DB stores Titles');
-      t.ok(data.body, 'DB stores Body');
-      t.notOk(data.completed, 'DB stores Completion Boolean');
+      t.ok(data.caption, 'DB stores Body');
+      t.ok(Array.isArray(data.uris), 'DB stores array of URIs');
+      t.ok(data.uris[0].href, 'DB stores individual links');
+      t.ok(data.public, 'DB stores Public Boolean');
       t.end();
     });
   });
 });
-test('GET to /todo should return an array of todo objects', (t) => {
+test('GET to /db should return an array of work objects', (t) => {
   stRequest(HOST)
-    .get('/todo')
+    .get('/db')
     .expect('Content-Type', /application\/json/)
     .expect(200)
     .end((err, res) => {
       console.log(res.body);
       t.error(err, 'No Errors on GET /todo');
       t.ok(res.body[0].title, 'Server Returns Titles');
-      t.ok(res.body[0].body, 'Server Returns Body');
+      t.ok(res.body[0].uris[0].href, 'Server Returns Links');
       t.end();
     });
 });
-test('POST to /todo with improper format should return error & not write DB', (t) => {
+test('POST to /db with improper format should return error & not write DB', (t) => {
   const badObj = {
     body: 'Do some stuff',
     ok: 'some stuff',
     notok: 'Totally Wrong',
   };
   const errObj = {
-    error: 'Malformed ToDo in post reuqest',
+    error: 'Malformed work in post reuqest',
   };
   stRequest(HOST)
-    .post('/todo')
+    .post('/db')
     .send(badObj)
     .expect('Content-Type', /application\/json/)
     .end((err, res) => {
       t.equal(res.statusCode, 401, '401 Code returned');
-      ToDo.find({}, (err, data) => {
+      Work.find({}, (err, data) => {
         t.equal(data.length, 1, 'Malformed entry not added to DB!');
         t.end();
       });
     });
 });
-test('POST to /todo with proper format should return todo & write DB', (t) => {
+test('POST to /db with proper format should return Work Object & write DB', (t) => {
   const goodObj = {
-    title: 'Another Awesome ToDo',
-    body: 'Some more stuff to remember',
-    completed: false,
-    dueDate: Date.now(),
+    title: 'Tree Ladies',
+    caption: 'Another pretty scene',
+    medium: 'Marble',
+    public: false,
+    creationDate: Date.now(),
+    uris: [
+      {
+        href: 'http://codemosey.net',
+        name: '1000px PNG',
+        notes: 'lightly compressed',
+      },
+      {
+        href: 'http://codemosey.net',
+        name: '500px JPG',
+        notes: 'Highly compressed',
+
+      },
+    ],
   };
   stRequest(HOST)
-    .post('/todo')
+    .post('/db')
     .send(goodObj)
     .expect('Content-Type', /application\/json/)
     .expect(200)
     .end((err, res) => {
       console.log(res.body);
-      t.equal(res.body.title, goodObj.title, 'Todo Obj returned.');
-      ToDo.find({}, (err, data) => {
+      t.equal(res.body.title, goodObj.title, 'Work Obj returned.');
+      Work.find({}, (err, data) => {
         t.equal(data.length, 2, 'New entry added to DB!');
         t.end();
       });
     });
 });
 test('Teardown', (t) => {
-  ToDo.remove({}, (err) => {
+  Work.remove({}, (err) => {
     t.error(err, 'No error on db clear');
     db.close();
   });

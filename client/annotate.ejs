@@ -1,0 +1,23 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>d CMS: Annotate</title>
+</head>
+<body>
+  Delilah CMS : Annotate Work
+  <% if (flash) { %>
+    <div class='flashTitle'>  <%= flash.title %> </div>
+    <div class='flashBody'> <%= flash.body %> </div>
+    <% } %>
+  <form method='POST' action='/annotate'>
+    <input name="uri" type="text" value="<%= uri %>"</input>
+    <input name="title" type="text" placeholder="Title"></input>
+    <input name="caption" type="text" placeholder="Caption"></input>
+    <input name="medium" type="text" placeholder="Medium"></input>
+    <input name="creationDate" type="text" placeholder="Creation Date"></input>
+    <input name="uriname" type="text" placeholder="URI Name"></input>
+    <input name="urinotes" type="text" placeholder="URI Notes"></input>
+    <input type='submit' value='Annotate Work'></button>
+  </form>
+</body>
+</html>

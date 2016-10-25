@@ -1,22 +1,23 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/marmotify');
+mongoose.connect('mongodb://localhost/delilah');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'data be hosed, broh:'));
 db.once('open', () => {
   console.log('Connected with MongoDB');
 });
 
-const todoSchema = mongoose.Schema({
+const workSchema = mongoose.Schema({
   title: { type: String, required: true },
-  body: String,
-  completed: Boolean,
-  addedDate: { type: Date, default: Date.now },
-  dueDate: Date,
+  caption: String,
+  medium: String,
+  public: Boolean,
+  creationDate: { type: Date, default: Date.now },
+  uris: Array,
 });
-const ToDo = mongoose.model('ToDo', todoSchema);
+const Work = mongoose.model('Work', workSchema);
 
-const respondWithToDos = (req, res) => {
-  ToDo.find({}, (err, data) => {
+const respondWithWorks = (req, res) => {
+  Work.find({}, (err, data) => {
     if (err) {
       console.log(error);
       return res.json(err);
@@ -25,7 +26,7 @@ const respondWithToDos = (req, res) => {
 };
 
 const validateAndCommitPost = (req, res) => {
-  ToDo.create(req.body, (err, data) => {
+  Work.create(req.body, (err, data) => {
     if (err) {
       console.log('Validation Error!');
       res.statusCode = (401);
@@ -37,4 +38,4 @@ const validateAndCommitPost = (req, res) => {
   });
 }
 
-module.exports = { db, ToDo, respondWithToDos, validateAndCommitPost };
+module.exports = { db, Work, respondWithWorks, validateAndCommitPost };
