@@ -32,6 +32,16 @@ server.post('/annotate', views.annotateProcessPost);
 server.get('/edit/:id', views.editView);
 server.post('/edit/:id', views.editProcessPost);
 
+server.get('/del/:id', views.delView);
+server.post('/del/:id', views.delProcessPost);
+
+server.get('/add_file/:id', (req, res) => {
+  res.render('../client/add_file', { flash: null, work: { _id: req.params.id }});
+});
+
+server.post('/add_uri/:id', views.addUriProcessPost);
+
+
 const serverHandle = server.listen(PORT);
 console.log('----===***WELCOME***===----');
 console.log(`Listening on localhost:${PORT}`);

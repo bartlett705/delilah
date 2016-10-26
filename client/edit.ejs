@@ -1,24 +1,36 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>d CMS: Annotate</title>
+  <title>d CMS: Edit</title>
 </head>
 <body>
-  Delilah CMS : Edit Work
+  Delilah CMS : Edit Work : <%= work.title %>
   <% if (flash) { %>
-    <div class='flashTitle'>  <%= flash.title %> </div>
-    <div class='flashBody'> <%= flash.body %> </div>
+    <div class='flash'>  <%= flash %> </div>
     <% } %>
-  <form method='POST' action='/edit/<%= work._id %>'>
-    <input name="title" type="text" value="<%= work.title %>"></input>
-    <input name="caption" type="text" value="<%= work.caption %>"></input>
-    <input name="medium" type="text" value="<%= work.medium %>"></input>
-    <input name="creationDate" type="text" value="<%= work.creationDate %>"></input>
+  <form>
+    <input id='form-title' name="title" type="text" value="<%= work.title %>"></input>
+    <input id='form-caption' name="caption" type="text" value="<%= work.caption %>"></input>
+    <input id='form-medium'name="medium" type="text" value="<%= work.medium %>"></input>
+    <input id='form-creationdate' name="creationDate" type="text" value="<%= work.creationDate %>"></input>
+    <ul>
     <% for (i = 0; i < work.uris.length; i++) { %>
+      <li class='edit-uri'><%= work.uris[i].href %>
+        <span class='hidden-id'><%= work.uris[i].id %></span>
       <input name="uriname" type="text" value="<%= work.uris[i].name %>"></input>
-      <input name="uri" type="text" value="<%= work.uris[i].uri %>"</input>
       <input name="urinotes" type="text" value="<%= work.uris[i].notes %>"></input>
-    <input type='submit' value='Annotate Work'></button>
+      <div class='del-uri'>Delete this uri</div>
+    <% } %>
+    </ul>
+    <a class='add-file' href="/add_file/<%= work._id %>">Upload / Process</a>
   </form>
+    <button id='edit-btn'>Edit Work</button>
+  <a href='/del/<%= work._id %>' class='del-link'>Delete This Work</a>
+  <a href='/main' class='cancel-link'>Cancel Edit</a>
+  <script> console.log('Hooey');
+    let uriObjsArray = <%- JSON.stringify(work.uris) %>
+    const _id = '<%= work._id %>';
+  </script>
+  <script type="text/javascript" src="/edit.js"> </script>
 </body>
 </html>

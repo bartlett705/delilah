@@ -1,0 +1,18 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>d CMS: Delete</title>
+</head>
+<body>
+  Delilah CMS : Delete Work : <%= work.title %>
+  <% if (flash) { %>
+    <div class='flash'>  <%= flash %> </div>
+    <% } %>
+  <form method='POST' action='/del/<%= work._id %>'>
+    <h1 class='warn'>ARE YOU SURE?!</h1>
+    <h1 class="warn">this cannot be undone.</h1>
+    <input class = 'warn-btn' type='submit' value='Confirm Delete Work'>
+  </form>
+  <a href='/edit/<%= work._id %>' class='edit-link'>Back to Edit</a>
+</body>
+</html>

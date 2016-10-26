@@ -11,6 +11,7 @@
   <div id='container'>
     <ul id ='work-list'>
       <h2>Catalog</h2>
+      <h3>Contains <%= works.length %> items</h3>
       <% for(let i=0; i < works.length; i++) {
         const work = works[i]; %>
       <li class='work-container'>
@@ -41,6 +42,7 @@
           </li>
           <% } %>
         </ul>
+        <a class= 'edit-link' href='/edit/<%= work._id %>'>Edit</a>
       </li>
       <% } %>
   </ul>

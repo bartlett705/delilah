@@ -1,0 +1,20 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>d CMS: Add File</title>
+</head>
+<body>
+  Delilah CMS : Add File to Work : <%= work.title %>
+  <% if (flash) { %>
+    <div class='flash'>  <%= flash %> </div>
+    <% } %>
+  <form method='POST' action='/add_uri/<%= work._id %>'>
+    Manually add existing URI:
+    <input name="uri" type="text" placeholder='http://www.example.com'></input>
+    <input name="uriname" type="text" placeholder="URI Name"></input>
+    <input name="urinotes" type="text" placeholder="URI Notes"></input>
+    <input class = 'warn-btn' type='submit' value='Add Uri'>
+  </form>
+  <a href='/edit/<%= work._id %>' class='del-link'>Cancel</a>
+</body>
+</html>
