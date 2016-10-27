@@ -1,0 +1,120 @@
+body {
+  background-color: #151010;
+  color: #b0bfb0;
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+a {
+  background-color: dodgerblue;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 5px;
+  text-decoration: none;
+  margin: 0 1em;
+}
+.edit-link {
+  background-color: darkgreen;
+  position: relative;
+  top: -40px;
+  left: 20%;
+  z-index: 5;
+  opacity: 0.7;
+}
+.work-preview {
+  z-index: 0;
+  max-width: 125px;
+  max-height: 125px;
+  border-radius: 10px;
+}
+.work-container {
+  display: inline;
+  float:left;
+  vertical-align: middle;
+}
+.work-list-item {
+  list-style: none;
+  margin-top: 5em;
+}
+.uri-list-item {
+  list-style: lower-greek;
+}
+.preview-edit-container {
+  padding: 0px;
+  width: 125px;
+  height: 125px;
+  border: solid 1px blue;
+  float: left;
+  margin-right: 15px;
+}
+h3 {
+  display: inline;
+  margin-bottom: 3em;
+  margin-right: 5em;
+}
+.work-title {
+  font-style: oblique;
+}
+.work-caption {
+  margin: 0.5em;
+  padding-top: 1em;
+}
+.work-medium {
+  font-weight: 700;
+}
+.link-button, button {
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 5px;
+  border: none;
+}
+#save-btn {
+  background-color: darkgreen;
+  margin: 0 1em;
+}
+.del-link {
+  background-color: darkred;
+}
+.btn-container {
+  margin-top: 3em;
+}
+.hidden-id {
+  display: none;
+}
+.edit-uri {
+  list-style: lower-greek;
+}
+.btn-sm {
+  cursor: pointer;
+  margin: 1em;
+  margin-bottom: 2em;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+  display: inline;
+}
+.uri-name {
+  font-weight: 700;
+}
+.uri-href {
+  font-style: oblique;
+}
+.add-preview-btn {
+  background-color: gold;
+}
+.del-uri {
+  background-color: darkred;
+}
+.uri-list {
+  margin: 2em;
+}
+
+.seperator {
+  clear: both;
+}
+input {
+  background-color: #252020;
+  color: white;
+  border: 1px dotted #353030;
+  padding: 0.2em;
+}
