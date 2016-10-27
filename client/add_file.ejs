@@ -2,6 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <title>d CMS: Add File</title>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
   Delilah CMS : Add File to Work : <%= work.title %>
@@ -13,7 +14,16 @@
     <input name="uri" type="text" placeholder='http://www.example.com'></input>
     <input name="uriname" type="text" placeholder="URI Name"></input>
     <input name="urinotes" type="text" placeholder="URI Notes"></input>
-    <input class = 'warn-btn' type='submit' value='Add Uri'>
+    <input name='uripreview' type='checkbox'</input>
+    <input class = 'button-link' type='submit' value='Add Uri'>
+  </form>
+  <form method='POST' action='/add_file/<%= work._id %>' enctype="multipart/form-data">
+    Upload and Tag New File:
+    <input type="file", name="newfile">
+    <input name="uriname" type="text" placeholder="URI Name"></input>
+    <input name="urinotes" type="text" placeholder="URI Notes"></input>
+    <input name='uripreview' type='checkbox'</input>
+    <input class = 'button-link' type='submit' value='Upload File'>
   </form>
   <a href='/edit/<%= work._id %>' class='del-link'>Cancel</a>
 </body>

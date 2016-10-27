@@ -2,9 +2,11 @@
 <head>
   <meta charset="UTF-8">
   <title>delilah CMS Main</title>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  Delilah CMS : Main View
+  <script type="text/javascript" src="ejs_production.js"></script>
+  <h2>Delilah CMS : Main View</h2>
   <% if (flash) { %>
     <div class='flash'> <%= flash %> </div>
   <% } %>
@@ -12,24 +14,37 @@
     <ul id ='work-list'>
       <h2>Catalog</h2>
       <h3>Contains <%= works.length %> items</h3>
+      <a href='/annotate' class='add-btn'>Add New</a>
+
       <% for(let i=0; i < works.length; i++) {
         const work = works[i]; %>
-      <li class='work-container'>
+      <li class='work-list-item'>
+        <div class='preview-edit-container'>
+        <% if (work.preview) { %>
+        <img class='work-preview' src="<%= work.preview.slice(work.preview.lastIndexOf(':') + 5) %>">
+        <% } else { %>
+          <img class='work-preview' src="shim.png">
+          <% } %>
+        <a class= 'edit-link' href='/edit/<%= work._id %>'>Edit</a>
+      </div>
+        <div class='work-container'>
         <span class="work-title">
           <%= work.title %>
         </span>
-        <span class="work-caption">
-          <%= work.caption %>
-        </span>
+
         <span class="work-medium">
           <%= work.medium %>
         </span>
         <span class="work-creationdate">
           <%= work.creationDate %>
         </span>
+        <br>
+        <span class="work-caption">
+          "<%= work.caption %>"
+        </span>
         <ul class="uri-list">
         <% for (let j = 0; j < work.uris.length; j++ ) { %>
-          <li class='uri-listitem'>
+          <li class='uri-list-item'>
             <span class="uri-name">
               <%= work.uris[j].name %>
             </span>
@@ -42,8 +57,9 @@
           </li>
           <% } %>
         </ul>
-        <a class= 'edit-link' href='/edit/<%= work._id %>'>Edit</a>
+      </div>
       </li>
+      <div class='seperator'></div>
       <% } %>
   </ul>
   </div>

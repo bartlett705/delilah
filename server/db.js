@@ -13,6 +13,7 @@ const workSchema = mongoose.Schema({
   public: Boolean,
   creationDate: { type: Date, default: Date.now },
   uris: Array,
+  preview: String,
 });
 const Work = mongoose.model('Work', workSchema);
 
